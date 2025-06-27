@@ -91,7 +91,59 @@ function maybeStart() {
                 yeeepeeeeee.height * 0.5
             );
             ctx.restore();
-            setTimeout(() => requestAnimationFrame(drawGlitchFrame), 120);
+
+            // === Création d'un buffer temporaire ===
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.putImageData(imageData, 0, 0);
+
+            // === Distorsion CRT sinusoïdale ===
+            for (let y = 0; y < canvas.height; y++) {
+                const amplitude = 1 + Math.random() * 2; // variation légère
+                const offset = Math.sin(y * 0.02 + performance.now() * 0.01) * amplitude;
+                ctx.drawImage(tempCanvas, 0, y, canvas.width, 1, offset, y, canvas.width, 1);
+            }
+
+            // === Déchirements VHS (horizontal tearing) ===
+            for (let i = 0; i < 3; i++) {
+                const tearY = Math.random() * canvas.height;
+                const tearHeight = 5 + Math.random() * 50;
+                const tearOffset = (Math.random() - 0.5) * 100;
+                ctx.drawImage(tempCanvas, 0, tearY, canvas.width, tearHeight, tearOffset, tearY, canvas.width, tearHeight);
+            }
+
+            // === Scanlines animées ===
+            const scanOffset = performance.now() / 10 % canvas.height;
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.03)';
+            for (let y = -scanOffset; y < canvas.height; y += 2) {
+                ctx.fillRect(0, y, canvas.width, 1);
+            }
+
+            // === Bandes rouges VHS ===
+            const stripeHeight = 20;
+            for (let y = 0; y < height; y += stripeHeight * 1.5) {
+                ctx.fillStyle = `rgba(150, 0, 0, 0.07)`; // plus marqué et foncé
+                ctx.fillRect(0, y, width, stripeHeight);
+            }
+
+            // === Bruit vidéo (grain) ===
+            const noiseDensity = 0.02;
+            const noisePixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < noisePixels.data.length; i += 4) {
+                if (Math.random() < noiseDensity) {
+                    const val = 50 + Math.random() * 50;
+                    noisePixels.data[i] = val;
+                    noisePixels.data[i + 1] = val;
+                    noisePixels.data[i + 2] = val;
+                    noisePixels.data[i + 3] = 50;
+                }
+            }
+            ctx.putImageData(noisePixels, 0, 0);
+
+            setTimeout(() => requestAnimationFrame(drawGlitchFrame), 80);
         }
 
         drawGlitchFrame();
