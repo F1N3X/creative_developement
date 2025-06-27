@@ -13,6 +13,7 @@ const yeeepeeeeee = new Image();
 const nutCracker = new Image();
 const JesterSkull = new Image();
 const giant = new Image();
+const bracken = new Image();
 
 let giantLoaded = false;
 let JesterSkullLoaded = false;
@@ -21,7 +22,9 @@ let yeeepeeeeeeLoaded = false;
 let collineLoaded = false;
 let logoLoaded = false;
 let heroLoaded = false;
+let brackenLoaded = false;
 
+bracken.src = 'assets/monsters/bracken.png';
 giant.src = 'assets/monsters/giant.webp';
 nutCracker.src = 'assets/monsters/nut_cracker.png';
 yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
@@ -30,9 +33,83 @@ logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
 JesterSkull.src = 'assets/monsters/jesterSKull.webp';
 
+let GiantScales = [
+    0.3, // scale for giant
+    0
+]
+let NutcrackerScales = [
+    0.35, // scale for nutcracker
+    0
+]
+let JesterSkullScales = [
+    1.5, // scale for Jester Skull
+    2
+]
+let brackenScales = [
+    1.5, // scale for bracken
+    1.5
+]
+let GiantSpots = [
+    {
+        inverted: false,
+        x: width / 2 - (giant.width * GiantScales[0] /2),
+        y: height / 2 - 185 - (giant.height * GiantScales[0] / 2),
+        width: giant.width * GiantScales[0],
+        height: giant.height * GiantScales[0]
+    }, 
+    {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    }
+]
+const NutcrackerSpots = [
+    {
+        inverted: false,
+        x: 0,
+        y: height / 2 - 300,
+        width: nutCracker.width * NutcrackerScales[0],
+        height: nutCracker.height * NutcrackerScales[0]
+    },
+    {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    }
+]
+const JesterSkullSpots = [
+    {
+        inverted: false,
+        x: 0, 
+        y: 0 + JesterSkull.height * JesterSkullScales[0] / 2,
+        width: JesterSkull.width * JesterSkullScales[0],
+        height: JesterSkull.height * JesterSkullScales[0]
+    },
+    {
+        inverted: false,
+        x: width / 2 - (JesterSkull.width * JesterSkullScales[0] / 2),
+        y: height / 2 - (JesterSkull.height * JesterSkullScales[0] / 2),
+        width: JesterSkull.width * JesterSkullScales[1],
+        height: JesterSkull.height * JesterSkullScales[1]
+    }
+]
 
-const GiantSpots = [
-    {}, {}
+const BrackenSpots = [
+    {  
+        inverted: false,
+        x: width - bracken.width * brackenScales[0],
+        y: height / 2,
+        width: bracken.width * brackenScales[0],
+        height: bracken.height * brackenScales[0]
+    },
+    {
+        inverted: true,
+
+    }
 ]
 logoImg.onload = () => {
     logoLoaded = true;
@@ -63,9 +140,36 @@ giant.onload = () => {
     giantLoaded = true;
     maybeStart();
 }
+bracken.onload = () => {
+    brackenLoaded = true;
+    maybeStart();
+}
+const AllMonsters = [
+    {
+        name: 'nutcracker',
+        image: nutCracker,
+        spots: NutcrackerSpots,
+    },
+    {
+        name: 'giant',
+        image: giant,
+        spots: GiantSpots,
+    },
+    {
+        name: 'jesterSkull',
+        image: JesterSkull,
+        spots: JesterSkullSpots,
+    },
+    {
+        name: 'bracken',
+        image: bracken,
+        spots: BrackenSpots,
+    }
+]
 function maybeStart() {
     let nutCrackerOpacity = 0;
-    if (logoLoaded && heroLoaded) {
+    let shouldSelect = true;
+    if (logoLoaded && heroLoaded && nutCrackerLoaded && collineLoaded && yeeepeeeeeeLoaded && JesterSkullLoaded && giantLoaded && brackenLoaded) {
         const logoTargetHeight = height * 0.2;
         const logoScale = logoTargetHeight / logoImg.height;
         const logoWidth = logoImg.width * logoScale;
@@ -105,41 +209,36 @@ function maybeStart() {
             //colline
             ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
             // monsters
-            // Définir l'opacité pour nutCracker (modifiable dynamiquement)
+            let selectedConfig = Math.floor(Math.random() * 1);
+            if (shouldSelect) {
+                selectedConfig = Math.floor(Math.random() * 1);
+            }
+            // Définir l'opacité pour 
             if (nutCrackerOpacity <= 0) {
                 shouldAppear = true;
-            } else if (nutCrackerOpacity > 0.3) {
+            } else if (nutCrackerOpacity > 0.15) {
                 shouldAppear = false;
             }
             if (shouldAppear) {
                 nutCrackerOpacity += 0.01; // Augmente l'opacité progressivement
             } else {
                 nutCrackerOpacity = nutCrackerOpacity < 0.01 ? 0 : nutCrackerOpacity - 0.01; 
+                if (nutCrackerOpacity <= 0) {
+                    shouldSelect = true;
+                }
             }
 
             ctx.save();
             ctx.globalAlpha = nutCrackerOpacity;
-            ctx.drawImage(
-                nutCracker,
-                0,
-                height - nutCracker.height * 0.5 - 200,
-                nutCracker.width * 0.35,
-                nutCracker.height * 0.35
-            );
-            ctx.drawImage(
-                JesterSkull,
-                width / 2 - JesterSkull.width,
-                height / 2 - JesterSkull.height,
-                JesterSkull.width * 2,
-                JesterSkull.height * 2
-            )
-            ctx.drawImage(
-                giant,
-                width / 2 - (giant.width * 0.3 /2),
-                height / 2 - 185 - giant.height * 0.3 / 2, 
-                giant.width * 0.3,
-                giant.height * 0.3
-            );
+            for (monster in AllMonsters) {
+                ctx.drawImage(
+                    AllMonsters[monster].image,
+                    AllMonsters[monster].spots[selectedConfig].x,
+                    AllMonsters[monster].spots[selectedConfig].y,
+                    AllMonsters[monster].spots[selectedConfig].width,
+                    AllMonsters[monster].spots[selectedConfig].height
+                );
+            }
 
             ctx.restore();
             //youpi
