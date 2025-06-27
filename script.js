@@ -15,7 +15,11 @@ const JesterSkull = new Image();
 const giant = new Image();
 const bracken = new Image();
 const coilHead = new Image();
+const butler = new Image();
+const spider = new Image();
 
+let spiderLoaded = false;
+let butlerLoaded = false;
 let coilHeadLoaded = false;
 let giantLoaded = false;
 let JesterSkullLoaded = false;
@@ -26,6 +30,8 @@ let logoLoaded = false;
 let heroLoaded = false;
 let brackenLoaded = false;
 
+spider.src = 'assets/monsters/spider.webp';
+butler.src = 'assets/monsters/butler.png';
 coilHead.src = 'assets/monsters/coil_head.png';
 bracken.src = 'assets/monsters/bracken.png';
 giant.src = 'assets/monsters/giant.webp';
@@ -36,25 +42,87 @@ logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
 JesterSkull.src = 'assets/monsters/jesterSKull.webp';
 
+let spiderScales = [
+    0.2,
+    0,
+    0
+]
+let butlerScales = [
+    0,
+    0.25,
+    0
+]
 let coilHeadScales = [
     0, 
-    2 // scale for coil head
+    2, // scale for coil head
+    0
 ]
 let GiantScales = [
     0.3, // scale for giant
-    0
+    0,
+    1
 ]
 let NutcrackerScales = [
     0.35, // scale for nutcracker
+    0,
     0
 ]
 let JesterSkullScales = [
     1.5, // scale for Jester Skull
-    2
+    2,
+    0
 ]
 let brackenScales = [
     1.5, // scale for bracken
-    1.5
+    1.5,
+    0
+]
+
+let spiderSpots = [
+    {
+        inverted: false,
+        x: width - (spider.width * spiderScales[0]),
+        y: height / 2 - (spider.height * spiderScales[0]/ 2) +50,
+        width: spider.width * spiderScales[0],
+        height: spider.height * spiderScales[0]
+    },
+    {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    },
+        {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    }
+]
+let butlerSpots = [
+    {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    },
+    {
+        inverted: false,
+        x: 0,
+        y : height / 2 - 100,
+        width: butler.width * butlerScales[1],
+        height: butler.height * butlerScales[1]
+    },
+        {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    }
 ]
 let coilHeadSpots = [
     {
@@ -70,6 +138,13 @@ let coilHeadSpots = [
         y: height / 2 - 200,
         width: coilHead.width * coilHeadScales[1],
         height: coilHead.height * coilHeadScales[1],
+    },
+        {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
     }
 ]
 let GiantSpots = [
@@ -86,7 +161,15 @@ let GiantSpots = [
         y: 0,
         width: 0,
         height: 0
-    }
+    },
+    {
+        inverted: false,
+        x: width / 2 - (giant.width * GiantScales[2] /2),
+        y: height / 2 - (giant.height * GiantScales[2] / 2) + 400,
+        width: giant.width * GiantScales[2],
+        height: giant.height * GiantScales[2]
+    },
+    
 ]
 const NutcrackerSpots = [
     {
@@ -97,6 +180,13 @@ const NutcrackerSpots = [
         height: nutCracker.height * NutcrackerScales[0]
     },
     {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    },
+        {
         inverted: false,
         x: 0,
         y: 0,
@@ -118,6 +208,13 @@ const JesterSkullSpots = [
         y: height / 2 - (JesterSkull.height * JesterSkullScales[0] / 2) - 200,
         width: JesterSkull.width * JesterSkullScales[1],
         height: JesterSkull.height * JesterSkullScales[1]
+    },
+        {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
     }
 ]
 
@@ -125,16 +222,23 @@ const BrackenSpots = [
     {  
         inverted: false,
         x: width - bracken.width * brackenScales[0],
-        y: height / 2,
+        y: height / 2 + 200,
         width: bracken.width * brackenScales[0],
         height: bracken.height * brackenScales[0]
     },
     {
         inverted: true,
         x: 0,
-        y: height / 2 - 200,
+        y: height / 2 - butler.height * butlerScales[1],
         width: bracken.width * brackenScales[1],
         height: bracken.height * brackenScales[1]
+    },
+        {
+        inverted: false,
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
     }
 ]
 logoImg.onload = () => {
@@ -174,6 +278,14 @@ coilHead.onload = () => {
     coilHeadLoaded = true;
     maybeStart();
 }
+butler.onload = () => {
+    butlerLoaded = true;
+    maybeStart();
+}
+spider.onload = () => {
+    spiderLoaded = true;
+    maybeStart();
+}
 const AllMonsters = [
     {
         name: 'nutcracker',
@@ -199,12 +311,22 @@ const AllMonsters = [
         name: 'coilHead',
         image: coilHead,
         spots: coilHeadSpots,
+    },
+    {
+        name: 'butler',
+        image: butler,
+        spots: butlerSpots,
+    },
+    {
+        name: 'spider',
+        image: spider,
+        spots: spiderSpots,
     }
 ]
 function maybeStart() {
     let nutCrackerOpacity = 0;
     let shouldSelect = true;
-    if (logoLoaded && heroLoaded && nutCrackerLoaded && collineLoaded && yeeepeeeeeeLoaded && JesterSkullLoaded && giantLoaded && brackenLoaded && coilHeadLoaded) {
+    if (logoLoaded && heroLoaded && nutCrackerLoaded && collineLoaded && yeeepeeeeeeLoaded && JesterSkullLoaded && giantLoaded && brackenLoaded && coilHeadLoaded && butlerLoaded && spiderLoaded) {
         const logoTargetHeight = height * 0.2;
         const logoScale = logoTargetHeight / logoImg.height;
         const logoWidth = logoImg.width * logoScale;
