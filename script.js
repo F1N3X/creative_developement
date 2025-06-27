@@ -108,7 +108,10 @@ const BrackenSpots = [
     },
     {
         inverted: true,
-
+        x: 0,
+        y: height / 2 - 200,
+        width: bracken.width * brackenScales[1],
+        height: bracken.height * brackenScales[1]
     }
 ]
 logoImg.onload = () => {
@@ -209,9 +212,9 @@ function maybeStart() {
             //colline
             ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
             // monsters
-            let selectedConfig = Math.floor(Math.random() * 1);
+            let selectedConfig = Math.floor(Math.random() * 2);
             if (shouldSelect) {
-                selectedConfig = Math.floor(Math.random() * 1);
+                selectedConfig = Math.floor(Math.random() * 2);
             }
             // Définir l'opacité pour 
             if (nutCrackerOpacity <= 0) {
@@ -230,16 +233,31 @@ function maybeStart() {
 
             ctx.save();
             ctx.globalAlpha = nutCrackerOpacity;
-            for (monster in AllMonsters) {
-                ctx.drawImage(
-                    AllMonsters[monster].image,
-                    AllMonsters[monster].spots[selectedConfig].x,
-                    AllMonsters[monster].spots[selectedConfig].y,
-                    AllMonsters[monster].spots[selectedConfig].width,
-                    AllMonsters[monster].spots[selectedConfig].height
-                );
+            for (let monster of AllMonsters) {
+                const spot = monster.spots[selectedConfig];
+                if (spot && spot.inverted) {
+                    ctx.save();
+                    ctx.scale(-1, 1);
+                    // Correction du flip horizontal : position X miroir correcte
+                    const flippedX = -(spot.x + spot.width);
+                    ctx.drawImage(
+                        monster.image,
+                        flippedX,
+                        spot.y,
+                        spot.width,
+                        spot.height
+                    );
+                    ctx.restore();
+                } else if (spot) {
+                    ctx.drawImage(
+                        monster.image,
+                        spot.x,
+                        spot.y,
+                        spot.width,
+                        spot.height
+                    );
+                }
             }
-
             ctx.restore();
             //youpi
             ctx.save();
