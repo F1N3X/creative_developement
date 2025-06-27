@@ -54,5 +54,5 @@ table {
 #canvas {
     height: 100vh;
     width: calc(100vh / 1.414);
-    background-color: rgb(13, 13, 117);
+    background-color: rgb(40,40,40);
 }

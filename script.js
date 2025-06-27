@@ -16,7 +16,7 @@ let collineLoaded = false;
 let logoLoaded = false;
 let heroLoaded = false;
 
-yeeepeeeeee.src = 'assets/yeeepeeeeee.png';
+yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
 collineImg.src = 'assets/colline.png';
 logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
@@ -77,8 +77,20 @@ function maybeStart() {
 
             // Héros
             ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
+            //colline
             ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
-            ctx.drawImage(yeeepeeeeee, 0, height - yeeepeeeeee.height * 4, yeeepeeeeee.width * 4, yeeepeeeeee.height * 4);
+            //youpi
+            ctx.save();
+            ctx.translate(yeeepeeeeee.width * 0.5 + 120, 275);
+            ctx.scale(-1, 1);
+            ctx.drawImage(
+                yeeepeeeeee,
+                0,
+                height - yeeepeeeeee.height,
+                yeeepeeeeee.width * 0.5,
+                yeeepeeeeee.height * 0.5
+            );
+            ctx.restore();
             setTimeout(() => requestAnimationFrame(drawGlitchFrame), 120);
         }
 
