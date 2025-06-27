@@ -27,17 +27,19 @@ heroImg.onload = () => {
 
 function maybeStart() {
     if (logoLoaded && heroLoaded) {
-        const scaleLogo = 2;
-        const logoWidth = logoImg.width * scaleLogo;
-        const logoHeight = logoImg.height * scaleLogo;
+        const logoTargetHeight = height * 0.2;
+        const logoScale = logoTargetHeight / logoImg.height;
+        const logoWidth = logoImg.width * logoScale;
+        const logoHeight = logoImg.height * logoScale;
         const logoX = (canvas.width - logoWidth) / 2;
         const logoY = 100;
 
-        const scaleHero = 0.75;
-        const heroWidth = heroImg.width * scaleHero;
-        const heroHeight = heroImg.height * scaleHero;
+        const heroTargetHeight = height * 0.35;
+        const heroScale = heroTargetHeight / heroImg.height;
+        const heroWidth = heroImg.width * heroScale;
+        const heroHeight = heroImg.height * heroScale;
         const heroX = (canvas.width - heroWidth) / 2;
-        const heroY = canvas.height - heroHeight + (150*scaleHero);
+        const heroY = canvas.height - heroHeight + (150 * heroScale);
 
         function drawGlitchFrame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
