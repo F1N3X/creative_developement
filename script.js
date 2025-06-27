@@ -8,10 +8,16 @@ canvas.height = height;
 
 const logoImg = new Image();
 const heroImg = new Image();
+const collineImg = new Image();
+const yeeepeeeeee = new Image();
 
+let yeeepeeeeeeLoaded = false;
+let collineLoaded = false;
 let logoLoaded = false;
 let heroLoaded = false;
 
+yeeepeeeeee.src = 'assets/yeeepeeeeee.png';
+collineImg.src = 'assets/colline.png';
 logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
 
@@ -25,6 +31,14 @@ heroImg.onload = () => {
     maybeStart();
 };
 
+collineImg.onload = () => {
+    collineLoaded = true;
+    maybeStart();
+}
+yeeepeeeeee.onload = () => {
+    yeeepeeeeeeLoaded = true;
+    maybeStart();
+}
 function maybeStart() {
     if (logoLoaded && heroLoaded) {
         const logoTargetHeight = height * 0.2;
@@ -39,7 +53,7 @@ function maybeStart() {
         const heroWidth = heroImg.width * heroScale;
         const heroHeight = heroImg.height * heroScale;
         const heroX = (canvas.width - heroWidth) / 2;
-        const heroY = canvas.height - heroHeight + (150 * heroScale);
+        const heroY = canvas.height - heroHeight - 275;
 
         function drawGlitchFrame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -63,7 +77,8 @@ function maybeStart() {
 
             // Héros
             ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
-
+            ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
+            ctx.drawImage(yeeepeeeeee, 0, height - yeeepeeeeee.height * 4, yeeepeeeeee.width * 4, yeeepeeeeee.height * 4);
             setTimeout(() => requestAnimationFrame(drawGlitchFrame), 120);
         }
 
