@@ -367,7 +367,7 @@ function maybeStart() {
             ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
             // monsters
             if (shouldSelect) {
-                selectedConfig = Math.floor(Math.random() * 2);
+                selectedConfig = Math.floor(Math.random() * 3);
             }
             // Définir l'opacité pour 
             if (nutCrackerOpacity <= 0) {
