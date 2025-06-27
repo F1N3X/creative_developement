@@ -12,7 +12,9 @@ const collineImg = new Image();
 const yeeepeeeeee = new Image();
 const nutCracker = new Image();
 const JesterSkull = new Image();
+const giant = new Image();
 
+let giantLoaded = false;
 let JesterSkullLoaded = false;
 let nutCrackerLoaded = false;
 let yeeepeeeeeeLoaded = false;
@@ -20,6 +22,7 @@ let collineLoaded = false;
 let logoLoaded = false;
 let heroLoaded = false;
 
+giant.src = 'assets/monsters/giant.webp';
 nutCracker.src = 'assets/monsters/nut_cracker.png';
 yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
 collineImg.src = 'assets/colline.png';
@@ -27,6 +30,10 @@ logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
 JesterSkull.src = 'assets/monsters/jesterSKull.webp';
 
+
+const GiantSpots = [
+    {}, {}
+]
 logoImg.onload = () => {
     logoLoaded = true;
     maybeStart();
@@ -52,7 +59,10 @@ JesterSkull.onload = () => {
     JesterSkullLoaded = true;
     maybeStart();
 }
-
+giant.onload = () => {
+    giantLoaded = true;
+    maybeStart();
+}
 function maybeStart() {
     let nutCrackerOpacity = 0;
     if (logoLoaded && heroLoaded) {
@@ -118,11 +128,19 @@ function maybeStart() {
             );
             ctx.drawImage(
                 JesterSkull,
-                width / 2 - JesterSkull.width *1.5,
-                height / 2 - JesterSkull.height *1.5,
-                JesterSkull.width *1.5,
-                JesterSkull.height *1.5
+                width / 2 - JesterSkull.width,
+                height / 2 - JesterSkull.height,
+                JesterSkull.width * 2,
+                JesterSkull.height * 2
             )
+            ctx.drawImage(
+                giant,
+                width / 2 - (giant.width * 0.3 /2),
+                height / 2 - 185 - giant.height * 0.3 / 2, 
+                giant.width * 0.3,
+                giant.height * 0.3
+            );
+
             ctx.restore();
             //youpi
             ctx.save();
