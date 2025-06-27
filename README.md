@@ -7,7 +7,7 @@
 ## How to run the project
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Mrpierrouge/creative_development.git
+    git clone https://github.com/Mrpierrouge/creative_developement.git
     cd creative_development
     ```
 2. Install the LiveServer extension in Visual Studio Code.
