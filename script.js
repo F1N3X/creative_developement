@@ -10,16 +10,22 @@ const logoImg = new Image();
 const heroImg = new Image();
 const collineImg = new Image();
 const yeeepeeeeee = new Image();
+const nutCracker = new Image();
+const JesterSkull = new Image();
 
+let JesterSkullLoaded = false;
+let nutCrackerLoaded = false;
 let yeeepeeeeeeLoaded = false;
 let collineLoaded = false;
 let logoLoaded = false;
 let heroLoaded = false;
 
+nutCracker.src = 'assets/monsters/nut_cracker.png';
 yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
 collineImg.src = 'assets/colline.png';
 logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
+JesterSkull.src = 'assets/monsters/jesterSKull.webp';
 
 logoImg.onload = () => {
     logoLoaded = true;
@@ -30,7 +36,10 @@ heroImg.onload = () => {
     heroLoaded = true;
     maybeStart();
 };
-
+nutCracker.onload = () => {
+    nutCrackerLoaded = true;
+    maybeStart();
+} 
 collineImg.onload = () => {
     collineLoaded = true;
     maybeStart();
@@ -39,7 +48,13 @@ yeeepeeeeee.onload = () => {
     yeeepeeeeeeLoaded = true;
     maybeStart();
 }
+JesterSkull.onload = () => {
+    JesterSkullLoaded = true;
+    maybeStart();
+}
+
 function maybeStart() {
+    let nutCrackerOpacity = 0;
     if (logoLoaded && heroLoaded) {
         const logoTargetHeight = height * 0.2;
         const logoScale = logoTargetHeight / logoImg.height;
@@ -79,6 +94,36 @@ function maybeStart() {
             ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
             //colline
             ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
+            // monsters
+            // Définir l'opacité pour nutCracker (modifiable dynamiquement)
+            if (nutCrackerOpacity <= 0) {
+                shouldAppear = true;
+            } else if (nutCrackerOpacity > 0.3) {
+                shouldAppear = false;
+            }
+            if (shouldAppear) {
+                nutCrackerOpacity += 0.01; // Augmente l'opacité progressivement
+            } else {
+                nutCrackerOpacity = nutCrackerOpacity < 0.01 ? 0 : nutCrackerOpacity - 0.01; 
+            }
+
+            ctx.save();
+            ctx.globalAlpha = nutCrackerOpacity;
+            ctx.drawImage(
+                nutCracker,
+                0,
+                height - nutCracker.height * 0.5 - 200,
+                nutCracker.width * 0.35,
+                nutCracker.height * 0.35
+            );
+            ctx.drawImage(
+                JesterSkull,
+                width / 2 - JesterSkull.width *1.5,
+                height / 2 - JesterSkull.height *1.5,
+                JesterSkull.width *1.5,
+                JesterSkull.height *1.5
+            )
+            ctx.restore();
             //youpi
             ctx.save();
             ctx.translate(yeeepeeeeee.width * 0.5 + 120, 275);
