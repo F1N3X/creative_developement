@@ -426,8 +426,6 @@ function maybeStart() {
             );
             ctx.restore();
 
-            ctx.save();
-
             // Position et style
             ctx.font = '50px "Rubik Dirt"';
             ctx.textAlign = 'center';
@@ -441,7 +439,7 @@ function maybeStart() {
             // Texte
             const message = 'IN THEATERS OCTOBER 15, 2025';
             const x = canvas.width / 2;
-            const y = canvas.height - 40;
+            const y = canvas.height - 30;
 
             // Contour et remplissage
             ctx.strokeText(message, x, y);
