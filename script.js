@@ -343,7 +343,7 @@ function maybeStart() {
 
         function drawGlitchFrame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+            
             // Logo de base
             ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
 
@@ -424,6 +424,29 @@ function maybeStart() {
                 yeeepeeeeee.width * 0.5,
                 yeeepeeeeee.height * 0.5
             );
+            ctx.restore();
+
+            ctx.save();
+
+            // Position et style
+            ctx.font = '50px "Rubik Dirt"';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+
+            // Couleurs dans les tons Lethal Company
+            ctx.fillStyle = '#e75f5f'; // rouge clair/néon
+            ctx.strokeStyle = '#f5f5dc'; // beige clair
+            ctx.lineWidth = 15;
+
+            // Texte
+            const message = 'IN THEATERS OCTOBER 15, 2025';
+            const x = canvas.width / 2;
+            const y = canvas.height - 40;
+
+            // Contour et remplissage
+            ctx.strokeText(message, x, y);
+            ctx.fillText(message, x, y);
+
             ctx.restore();
 
             // === Création d'un buffer temporaire ===
