@@ -411,12 +411,20 @@ function maybeStart() {
             // Héros
             ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
             //colline
+            const collineTargetHeight = height * 0.5;
+            const collineScale = collineTargetHeight / collineImg.height;
+            const collineWidth = width;
+            const collineHeight = collineImg.height * collineScale;
+
+            // Position Y : bas du canvas moins la hauteur de la colline
+            const collineY = height - collineHeight;
+
             ctx.drawImage(
                 collineImg, 
                 0, 
-                height - collineImg.height * 2 + (canvas.height * 0.18), 
-                width, 
-                collineImg.height * 2
+                collineY,
+                collineWidth, 
+                collineHeight
             );
             //youpi
             // Position relative à la taille du canvas
