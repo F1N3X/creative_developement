@@ -43,38 +43,38 @@ heroImg.src = 'assets/heroe_walk.png';
 JesterSkull.src = 'assets/monsters/jesterSKull.webp';
 
 let spiderScales = [
-    0.2,
+    height*0.0001,
     0,
     0
 ]
 let butlerScales = [
     0,
-    0.25,
+    height * 0.000125,
     0
 ]
 let coilHeadScales = [
     0, 
-    2, // scale for coil head
+    height * 0.001, // scale for coil head
     0
 ]
 let GiantScales = [
-    0.3, // scale for giant
+    height * 0.00015, // scale for giant
     0,
-    1
+    height * 0.0005
 ]
 let NutcrackerScales = [
-    0.35, // scale for nutcracker
+    height * 0.000175, // scale for nutcracker
     0,
     0
 ]
 let JesterSkullScales = [
-    1.5, // scale for Jester Skull
-    2,
+    height * 0.00075, // scale for Jester Skull
+    height * 0.001,
     0
 ]
 let brackenScales = [
-    1.5, // scale for bracken
-    1.5,
+    height * 0.00075, // scale for bracken
+    height * 0.00075,
     0
 ]
 
@@ -417,12 +417,15 @@ function maybeStart() {
             ctx.save();
             ctx.translate(yeeepeeeeee.width * 0.5 + 120, 275);
             ctx.scale(-1, 1);
+            const yeeepeeeeeeScale = height * 0.00025; // scale for youpi
+            const yeeepeeeeeeWidth = yeeepeeeeee.width * yeeepeeeeeeScale;
+            const yeeepeeeeeeHeight = yeeepeeeeee.height * yeeepeeeeeeScale;
             ctx.drawImage(
                 yeeepeeeeee,
-                0,
-                height - yeeepeeeeee.height,
-                yeeepeeeeee.width * 0.5,
-                yeeepeeeeee.height * 0.5
+                yeeepeeeeeeWidth * 0.5,
+                yeeepeeeeeeHeight * 1.5,
+                yeeepeeeeeeWidth,
+                yeeepeeeeeeHeight
             );
             ctx.restore();
 
