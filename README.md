@@ -13,6 +13,7 @@
 2. Install the LiveServer extension in Visual Studio Code.
 3. Open the project in Visual Studio Code.
 4. Start the LiveServer to see the project in action.
+5. If you do not see the monsters switching in the background, you may have to refresh the page.
 
 ## Project Structure
 - `index.html`: The main HTML file.
