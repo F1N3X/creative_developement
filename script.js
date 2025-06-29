@@ -33,7 +33,7 @@ let logoLoaded = false;
 let heroLoaded = false;
 let brackenLoaded = false;
 
-spider.src = 'assets/monsters/spider.webp';
+spider.src = 'assets/monsters/spider.png';
 butler.src = 'assets/monsters/butler.png';
 coilHead.src = 'assets/monsters/coil_head.png';
 bracken.src = 'assets/monsters/bracken.png';
