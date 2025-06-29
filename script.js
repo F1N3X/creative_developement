@@ -332,14 +332,14 @@ function maybeStart() {
         const logoWidth = logoImg.width * logoScale;
         const logoHeight = logoImg.height * logoScale;
         const logoX = (canvas.width - logoWidth) / 2;
-        const logoY = 100;
+        const logoY = canvas.height * 0.05;
 
         const heroTargetHeight = height * 0.35;
         const heroScale = heroTargetHeight / heroImg.height;
         const heroWidth = heroImg.width * heroScale;
         const heroHeight = heroImg.height * heroScale;
         const heroX = (canvas.width - heroWidth) / 2;
-        const heroY = canvas.height - heroHeight - 275;
+        const heroY = canvas.height - heroHeight - (canvas.height * 0.16);
 
         function drawGlitchFrame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -411,18 +411,31 @@ function maybeStart() {
             // Héros
             ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
             //colline
-            ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
+            ctx.drawImage(
+                collineImg, 
+                0, 
+                height - collineImg.height * 2 + (canvas.height * 0.18), 
+                width, 
+                collineImg.height * 2
+            );
             //youpi
+            // Position relative à la taille du canvas
+            const youpiTranslateX = canvas.width * 0.1;   // par exemple 10% de la largeur
+            const youpiTranslateY = canvas.height * 0.15; // par exemple 15% de la hauteur
+            const youpiDrawX = canvas.width * -0.30;       // position X du dessin après translation
+            const youpiDrawY = canvas.height * 0.45;      // position Y du dessin après translation
+
             ctx.save();
-            ctx.translate(yeeepeeeeee.width * 0.5 + 120, 275);
+
+            ctx.translate(youpiTranslateX, youpiTranslateY);
             ctx.scale(-1, 1);
             const yeeepeeeeeeScale = height * 0.00025; // scale for youpi
             const yeeepeeeeeeWidth = yeeepeeeeee.width * yeeepeeeeeeScale;
             const yeeepeeeeeeHeight = yeeepeeeeee.height * yeeepeeeeeeScale;
             ctx.drawImage(
                 yeeepeeeeee,
-                yeeepeeeeeeWidth * 0.5,
-                yeeepeeeeeeHeight * 1.5,
+                youpiDrawX,
+                youpiDrawY,
                 yeeepeeeeeeWidth,
                 yeeepeeeeeeHeight
             );
