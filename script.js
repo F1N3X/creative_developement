@@ -43,7 +43,7 @@ yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
 collineImg.src = 'assets/colline.png';
 logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
-JesterSkull.src = 'assets/monsters/jesterSKull.png';
+JesterSkull.src = 'assets/monsters/JesterSKull.png';
 
 let spiderScales = [
     height*0.0001,
