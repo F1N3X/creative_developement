@@ -37,13 +37,13 @@ spider.src = 'assets/monsters/spider.png';
 butler.src = 'assets/monsters/butler.png';
 coilHead.src = 'assets/monsters/coil_head.png';
 bracken.src = 'assets/monsters/bracken.png';
-giant.src = 'assets/monsters/giant.webp';
+giant.src = 'assets/monsters/giant.png';
 nutCracker.src = 'assets/monsters/nut_cracker.png';
 yeeepeeeeee.src = 'assets//monsters/youpi_bug.png';
 collineImg.src = 'assets/colline.png';
 logoImg.src = 'assets/logo.png';
 heroImg.src = 'assets/heroe_walk.png';
-JesterSkull.src = 'assets/monsters/jesterSKull.webp';
+JesterSkull.src = 'assets/monsters/jesterSKull.png';
 
 let spiderScales = [
     height*0.0001,
@@ -71,8 +71,8 @@ let NutcrackerScales = [
     0
 ]
 let JesterSkullScales = [
-    height * 0.00075, // scale for Jester Skull
-    height * 0.001,
+    height * 0.00035, // scale for Jester Skull
+    height * 0.00012,
     0
 ]
 let brackenScales = [
