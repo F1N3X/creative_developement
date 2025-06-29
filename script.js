@@ -426,15 +426,17 @@ function maybeStart() {
             );
             ctx.restore();
 
+            const titleScale = height * 0.025;
+
             // Position et style
-            ctx.font = '50px "Rubik Dirt"';
+            ctx.font = `${titleScale}px "Rubik Dirt"`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
 
             // Couleurs dans les tons Lethal Company
             ctx.fillStyle = '#e75f5f'; // rouge clair/néon
             ctx.strokeStyle = '#f5f5dc'; // beige clair
-            ctx.lineWidth = 15;
+            ctx.lineWidth = height * 0.007; // épaisseur de ligne
 
             // Texte
             const message = 'IN THEATERS OCTOBER 15, 2025';
