@@ -6,6 +6,9 @@ const height = canvas.clientHeight * 2;
 canvas.width = width;
 canvas.height = height;
 
+let previousScene = -1;
+let selectedConfig = -1;
+
 const logoImg = new Image();
 const heroImg = new Image();
 const collineImg = new Image();
@@ -362,7 +365,9 @@ function maybeStart() {
             }
             // monsters
             if (shouldSelect) {
-                selectedConfig = Math.floor(Math.random() * 3);
+                let possibleConfigs = [0, 1, 2].filter(i => i !== previousScene);
+                selectedConfig = possibleConfigs[Math.floor(Math.random() * possibleConfigs.length)];
+                previousScene = selectedConfig;
             }
             // Définir l'opacité pour 
             if (nutCrackerOpacity <= 0) {
