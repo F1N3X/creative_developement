@@ -360,11 +360,6 @@ function maybeStart() {
                     logoX + offsetX, sliceY, logoWidth, sliceHeight
                 );
             }
-
-            // Héros
-            ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
-            //colline
-            ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
             // monsters
             if (shouldSelect) {
                 selectedConfig = Math.floor(Math.random() * 3);
@@ -413,6 +408,10 @@ function maybeStart() {
                 }
             }
             ctx.restore();
+            // Héros
+            ctx.drawImage(heroImg, heroX, heroY, heroWidth, heroHeight);
+            //colline
+            ctx.drawImage(collineImg, 0, height - collineImg.height * 2 + 200, width, collineImg.height * 2);
             //youpi
             ctx.save();
             ctx.translate(yeeepeeeeee.width * 0.5 + 120, 275);
